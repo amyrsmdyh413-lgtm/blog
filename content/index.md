@@ -1,6 +1,5 @@
 ---
-title: Welcome to Quartz
+title: منِ متنی
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+خیلی دوست دارم که اون چیزی که در ذهنم میگذره رو به اشتراک بذارم و اینجا همونجاست!
