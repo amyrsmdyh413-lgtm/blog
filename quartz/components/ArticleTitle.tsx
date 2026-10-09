@@ -1,67 +1,23 @@
-import { formatDate, getDate } from "./Date"
-import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import readingTime from "reading-time"
-import { classNames } from "../util/theme"
-import { i18n } from "../i18n"
-import { JSX } from "preact"
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { classNames } from "../util/lang"
 
-interface ContentMetaOptions {
-  /**
-   * Whether to display reading time
-   */
-  showReadingTime: boolean
-  showComma: boolean
+const ArticleTitle: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
+  const title = fileData.frontmatter?.title
+  // حذف عنوان از صفحه اول
+  if (fileData.slug === "index") {
+    return <></>
+  }
+  if (title) {
+    return <h1 class={classNames(displayClass, "article-title")}>{title}</h1>
+  } else {
+    return <></>
+  }
 }
 
-const defaultOptions: ContentMetaOptions = {
-  showReadingTime: true,
-  showComma: true,
+ArticleTitle.css = `
+.article-title {
+  margin: 2rem 0 0 0;
 }
+`
 
-export default ((userOpts?: Partial<ContentMetaOptions>) => {
-  const options = { ...defaultOptions, ...userOpts }
-
-  function ContentMetadata({ cfg, fileData, displayClass }: QuartzComponentProps) {
-    const text = fileData.text
-
-    // حذف تاریخ و زمان مطالعه از صفحه اول
-    if (fileData.slug === "index") {
-      return <></>
-    }
-
-    if (text) {
-      const segments: (string | JSX.Element)[] = []
-
-      if (fileData.dates) {
-        segments.push(formatDate(getDate(cfg, fileData)!, cfg.locale))
-      }
-
-      // نمایش زمان مطالعه در صورت فعال بودن
-      if (options.showReadingTime) {
-        const { minutes, words: _words } = readingTime(text)
-        const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
-          minutes: Math.ceil(minutes),
-        })
-        segments.push(displayedTime)
-      }
-
-      const segmentsElements = segments.map((segment) => <span>{segment}</span>)
-
-      return (
-        <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
-          {segmentsElements}
-        </p>
-      )
-    } else {
-      return <></>
-    }
-  }
-
-  ContentMetadata.css = `
-  .content-meta {
-    margin-top: 0;
-    color: var(--gray);
-  }
-  `
-  return ContentMetadata
-}) satisfies QuartzComponentConstructor
+export default (() => ArticleTitle) satisfies QuartzComponentConstructor

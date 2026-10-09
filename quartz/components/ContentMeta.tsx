@@ -1,10 +1,9 @@
-import { Date, getDate } from "./Date"
+import { formatDate, getDate } from "./Date"
 import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import readingTime from "reading-time"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 import { JSX } from "preact"
-import style from "./styles/contentMeta.scss"
 
 interface ContentMetaOptions {
   /**
@@ -19,40 +18,50 @@ const defaultOptions: ContentMetaOptions = {
   showComma: true,
 }
 
-export default ((opts?: Partial<ContentMetaOptions>) => {
-  // Merge options with defaults
-  const options: ContentMetaOptions = { ...defaultOptions, ...opts }
+export default ((userOpts?: Partial<ContentMetaOptions>) => {
+  const options = { ...defaultOptions, ...userOpts }
 
   function ContentMetadata({ cfg, fileData, displayClass }: QuartzComponentProps) {
     const text = fileData.text
+
+    // حذف تاریخ و زمان مطالعه از صفحه اول
+    if (fileData.slug === "index") {
+      return <></>
+    }
 
     if (text) {
       const segments: (string | JSX.Element)[] = []
 
       if (fileData.dates) {
-        segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
+        segments.push(formatDate(getDate(cfg, fileData)!, cfg.locale))
       }
 
-      // Display reading time if enabled
+      // نمایش زمان مطالعه در صورت فعال بودن
       if (options.showReadingTime) {
         const { minutes, words: _words } = readingTime(text)
         const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
           minutes: Math.ceil(minutes),
         })
-        segments.push(<span>{displayedTime}</span>)
+        segments.push(displayedTime)
       }
+
+      const segmentsElements = segments.map((segment) => <span>{segment}</span>)
 
       return (
         <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
-          {segments}
+          {segmentsElements}
         </p>
       )
     } else {
-      return null
+      return <></>
     }
   }
 
-  ContentMetadata.css = style
-
+  ContentMetadata.css = `
+  .content-meta {
+    margin-top: 0;
+    color: var(--gray);
+  }
+  `
   return ContentMetadata
 }) satisfies QuartzComponentConstructor
