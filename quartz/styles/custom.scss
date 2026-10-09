@@ -1,6 +1,6 @@
 @use "./base.scss";
 
-// فونت و جهت متن
+// ۱. تنظیم فونت و جهت کلی متن
 html {
   font-family: Vazirmatn, sans-serif !important;
 }
@@ -9,18 +9,42 @@ code {
   direction: ltr !important;
 }
 
-// تنظیمات راست‌چین برای منوها و بخش‌های سایت
+// ۲. اصلاح جهت چرخش فلش‌ها در حالت بسته و باز برای راست‌چین
+button#explorer.collapsed .fold,
+button#toc.collapsed .fold,
+.collapsed .fold {
+  transform: rotateZ(90deg) !important;
+}
+
+li:has(> .folder-outer:not(.open)) > .folder-container > svg {
+  transform: rotate(90deg) !important;
+}
+
+// ۳. انتقال فلش به کنار عنوان به صورت راست‌چین
+button#explorer,
+button#toc {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+button#explorer .fold,
+button#toc .fold {
+  opacity: 0.8;
+  margin: 0 !important;
+  transition: transform 0.3s ease;
+}
+
+.folder-icon {
+  margin-right: 0px !important;
+  margin-left: 5px !important;
+}
+
+// ۴. اصلاح فواصل فهرست مطالب و منوها
 .breadcrumb-element p {
   margin: 0 .5rem 0 0;
   padding: 0;
   line-height: normal;
-}
-
-button#explorer .fold {
-  opacity: .8;
-  margin-left: 0 !important;
-  margin-right: 0.5rem !important;
-  transition: transform .3s;
 }
 
 .content-meta[show-comma="true"] > span:not(:last-child) {
@@ -31,11 +55,6 @@ button#explorer .fold {
 .tags {
   padding-left: 0px !important;
   padding-right: 0px !important;
-}
-
-.folder-icon {
-  margin-right: 0px !important;
-  margin-left: 5px !important;
 }
 
 #explorer-content ul {
@@ -58,15 +77,11 @@ button#explorer .fold {
   padding-right: 3rem !important;
 }
 
-li:has(> .folder-outer:not(.open)) > .folder-container > svg {
-  transform: rotate(90deg) !important;
-}
-
 div.search.mobile-only {
   padding-right: 10px !important;
 }
 
-// تغییر عنوان Footnotes به پانوشت‌ها
+// ۵. فارسی‌سازی عنوان پانوشت‌ها
 h2#footnote-label {
   visibility: hidden;
 }
