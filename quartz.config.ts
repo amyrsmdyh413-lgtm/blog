@@ -1,11 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
-/**
- * Quartz 4.0 Configuration
- *
- * See https://quartz.jzhao.xyz/configuration for more information.
- */
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "مشقِ من",
@@ -26,26 +21,26 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          light: "#fbf8f3",
+          lightgray: "#ebe3d5",
+          gray: "#8c7f70",
+          darkgray: "#2c2520",
+          dark: "#1a1512",
+          secondary: "#9e472a",
+          tertiary: "#c87a5b",
+          highlight: "rgba(158, 71, 42, 0.1)",
+          textHighlight: "#f3c66388",
         },
         darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
+          light: "#181615",
+          lightgray: "#292523",
+          gray: "#78706a",
+          darkgray: "#e6dfd5",
+          dark: "#f5efe6",
+          secondary: "#d98a59",
+          tertiary: "#e6ad85",
+          highlight: "rgba(217, 138, 89, 0.14)",
+          textHighlight: "#d98a5944",
         },
       },
     },
