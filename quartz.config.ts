@@ -8,12 +8,12 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🪴 یادداشت‌های من",
+    pageTitle: "مشقِ من",
     enableSPA: true,
     enablePopovers: true,
     analytics: null,
     locale: "fa-IR",
-    baseUrl: "amyrsmdyh413-lgtm.github.io/blog",
+    baseUrl: "mashqeman.ir",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
